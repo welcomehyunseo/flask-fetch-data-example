@@ -9,7 +9,7 @@
   </head>
   <body>
     <div id="field">
-      <!-- <canvas id="lazer-indicator"></canvas> -->
+      <!-- <canvas id="myChart"></canvas> -->
     </div>
 
     <script>
@@ -46,7 +46,17 @@
       setInterval(() => {
         pushLabel(getNow());
         pushData(getRandomInt(1000));
-        
+
+        const field = document.getElementById("field");
+        if (field.firstElementChild) {
+          field.removeChild(field.firstElementChild);
+        }
+
+        const newElement = document.createElement("canvas");
+        newElement.id = "myChart";
+        field.appendChild(newElement);
+
+        new Chart(document.getElementById("myChart"), config);
       }, 500);
     </script>
   </body>
