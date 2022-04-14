@@ -21,11 +21,22 @@
         Reload
       </button>
 
-      <ul class="list-group">
-        <li class="list-group-item">Jung Hyunseo</li>
-      </ul>
+      <ul id="person-list" class="list-group"></ul>
     </div>
 
+    <script>
+      const ulTag = document.getElementById("person-list");
+
+      function appendItem(person) {
+        const address = person.address;
+        const name = person.name;
+
+        const childElement = document.createElement("li"); // <li></li>
+        childElement.innerText = address + ", " + name;
+        childElement.classList.add("list-group-item");
+        ulTag.appendChild(childElement);
+      }
+    </script>
     <script>
       const refreshButton = document.getElementById("refresh_button");
 
@@ -34,9 +45,12 @@
         const json = await response.json();
         const data = json.data;
 
-        console.log(data);
+        for (let i = 0; i < data.length; i++) {
+          const person = data[i];
+          appendItem(person);
+        }
       }
-      refreshButton.addEventListener("click");
+      refreshButton.addEventListener("click", fetchingData);
     </script>
   </body>
 </html>

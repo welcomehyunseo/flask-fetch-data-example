@@ -3,6 +3,7 @@ from flask import Flask, jsonify
 from flask.templating import render_template
 from flask_cors import CORS
 
+
 app = Flask(__name__)
 CORS(app)
 
@@ -15,9 +16,9 @@ def index():
 @app.route("/get_users", methods=["GET"])
 def get_users():
     # logic
-
     fake = Faker()
     data = []
+
     for i in range(1, 1000):
         data.append(fake.simple_profile())
 
