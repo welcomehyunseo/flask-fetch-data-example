@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Charting data</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div id="field">
+      <!-- <canvas id="lazer-indicator"></canvas> -->
+    </div>
+
+    <script>
+      let config = {
+        type: "line",
+        data: {
+          labels: [], // low
+          datasets: [
+            {
+              label: "Lazer indicator",
+              backgroundColor: "rgb(255, 99, 132)",
+              borderColor: "rgb(255, 99, 132)",
+              data: [], // column
+            },
+          ],
+        },
+        options: {},
+      };
+      let seconds = 0;
+      function getNow() {
+        seconds++;
+        return seconds;
+      }
+      function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+      }
+      function pushLabel(name) {
+        config.data.labels.push(name);
+      }
+      function pushData(value) {
+        config.data.datasets[0].data.push(value);
+      }
+
+      setInterval(() => {
+        pushLabel(getNow());
+        pushData(getRandomInt(1000));
+        
+      }, 500);
+    </script>
+  </body>
+</html>
