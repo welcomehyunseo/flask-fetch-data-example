@@ -22,7 +22,7 @@
   </head>
   <body style="margin: 30px">
     <div id="field">
-      <!-- <canvas id="myChart"></canvas> -->
+      <canvas id="myChart"></canvas>
     </div>
 
     <button type="button" id="play-toggle" class="btn btn-primary btn-sm">
@@ -60,6 +60,20 @@
       function getRandomInt(max) {
         return Math.floor(Math.random() * max);
       }
+      async function fetchingData() {
+        const response = await fetch("/get_lazer_data", {
+          method: "GET",
+        });
+        const json = await response.json();
+        const success = json.success;
+        const data = json.data;
+
+        if (success) {
+          return data.randomInt;
+        } else {
+          // error
+        }
+      }
       function increaseLabel() {
         config.data.labels.push("");
       }
@@ -77,12 +91,12 @@
         increaseLabel();
       }
 
-      setInterval(() => {
+      setInterval(async () => {
         if (!playToggle) return;
         if (getLength() >= maxLength) {
           shiftData();
         }
-        pushData(getRandomInt(1000));
+        pushData(await fetchingData());
 
         const field = document.getElementById("field");
         if (field.firstElementChild) {
